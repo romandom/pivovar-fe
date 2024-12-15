@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox spacing="20" alignment="CENTER" styleClass="main-container" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cz.diplomka.pivovarfe.controller.CreateRecipeController" stylesheets="@styles/create-view.css">
+    <!-- Recipe Name Field -->
+    <TextField fx:id="recipeNameField" promptText="Enter Recipe Name" styleClass="input-field"/>
+
+    <!-- Step Form -->
+    <VBox spacing="10" alignment="CENTER" styleClass="step-form">
+        <!-- Input fields in a horizontal layout -->
+        <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="stepNumberField" promptText="Step Number" styleClass="input-small"/>
+            <TextField fx:id="targetTempField" promptText="Target Temperature" styleClass="input-small"/>
+            <TextField fx:id="durationField" promptText="Duration (seconds)" styleClass="input-small"/>
+        </HBox>
+        <ComboBox fx:id="vesselComboBox" promptText="Select Brewing Vessel" styleClass="input-field"/>
+        <CheckBox fx:id="transferCheckBox" text="Is Transfer Step" styleClass="check-box"/>
+        <Button text="Add Step" onAction="#addStep" styleClass="action-button"/>
+    </VBox>
+
+    <!-- Scrollable Steps Table -->
+    <ScrollPane fx:id="stepsScrollPane" fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+        <TableView fx:id="stepsTable" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="stepNumberColumn" text="Step Number"/>
+                <TableColumn fx:id="targetTempColumn" text="Target Temperature"/>
+                <TableColumn fx:id="durationColumn" text="Duration (seconds)"/>
+                <TableColumn fx:id="vesselColumn" text="Vessel"/>
+                <TableColumn fx:id="transferColumn" text="Is Transfer"/>
+            </columns>
+        </TableView>
+    </ScrollPane>
+
+    <!-- Create Recipe Button -->
+    <Button text="Create Recipe" onAction="#createRecipe" styleClass="action-button"/>
+</VBox>

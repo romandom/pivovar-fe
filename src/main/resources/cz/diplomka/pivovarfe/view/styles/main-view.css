@@ -1,0 +1,39 @@
+/* Štýl pre VBox (koreňový layout) */
+.root {
+    -fx-background-color: #004d00; /* Tmavo zelené pozadie */
+    -fx-alignment: center; /* Zarovnanie obsahu na stred */
+    -fx-spacing: 30px; /* Väčšia medzera medzi prvkami vo VBox */
+    -fx-padding: 20px; /* Vnútorné odsadenie */
+}
+
+/* Štýl pre nadpis */
+.main-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white; /* Biely text */
+    -fx-padding-bottom: 10px; /* Vyššie umiestnenie labelu */
+}
+
+/* Štýl pre tlačidlá */
+.menu-button {
+    -fx-background-color: #a0a0a0; /* Svetlejšia sivá farba */
+    -fx-text-fill: white; /* Biely text */
+    -fx-font-size: 16px; /* Veľkosť písma */
+    -fx-font-weight: bold;
+    -fx-padding: 12px 24px; /* Väčšie vnútorné odsadenie */
+    -fx-border-radius: 5px; /* Menšie zaoblené rohy */
+    -fx-background-radius: 5px; /* Menšie zaoblené rohy */
+    -fx-pref-width: 200px; /* Šírka tlačidla */
+    -fx-alignment: center; /* Zarovnanie textu na stred */
+}
+
+/* Efekt pri prechode myšou */
+.menu-button:hover {
+    -fx-background-color: #b0b0b0; /* Svetlejšia sivá pri hover */
+    -fx-cursor: hand; /* Zmena kurzora na ruku */
+}
+
+/* Efekt pri stlačení tlačidla */
+.menu-button:pressed {
+    -fx-background-color: #696969; /* Tmavšia sivá pri stlačení */
+}
