@@ -1,8 +1,10 @@
 package cz.diplomka.pivovarfe.controller;
 
+import cz.diplomka.pivovarfe.PivovarApplication;
 import cz.diplomka.pivovarfe.constant.BrewingVessel;
 import cz.diplomka.pivovarfe.model.Recipe;
 import cz.diplomka.pivovarfe.model.RecipeStep;
+import cz.diplomka.pivovarfe.service.RecipeClient;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -13,10 +15,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.IOException;
+
 public class CreateRecipeController {
 
     @FXML private TextField recipeNameField;
-    @FXML private TextField stepNumberField;
     @FXML private TextField targetTempField;
     @FXML private TextField durationField;
     @FXML private ComboBox<BrewingVessel> vesselComboBox;
@@ -29,31 +32,32 @@ public class CreateRecipeController {
     @FXML private TableColumn<RecipeStep, Boolean> transferColumn;
 
     private final ObservableList<RecipeStep> recipeSteps;
+    private final RecipeClient recipeClient;
+
+    private int stepNumber;
 
     public CreateRecipeController() {
         this.recipeSteps = FXCollections.observableArrayList();
+        this.recipeClient = new RecipeClient();
+        this.stepNumber = 1;
     }
 
     @FXML
     public void initialize() {
-        // Initialize ComboBox with BrewingVessel values
         vesselComboBox.getItems().setAll(BrewingVessel.values());
 
-        // Initialize Table columns
         stepNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStepNumber()).asObject());
         targetTempColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTargetTemperature()).asObject());
         durationColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getDuration()).asObject());
         vesselColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVessel().toString()));
         transferColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isTransferStep()).asObject());
 
-        // Bind data to table
         stepsTable.setItems(recipeSteps);
     }
 
     @FXML
     private void addStep() {
         try {
-            var stepNumber = Integer.parseInt(stepNumberField.getText());
             var targetTemperature = Double.parseDouble(targetTempField.getText());
             var duration = Integer.parseInt(durationField.getText());
             var vessel = vesselComboBox.getValue();
@@ -61,6 +65,8 @@ public class CreateRecipeController {
 
             var step = new RecipeStep(stepNumber, targetTemperature, duration, vessel, isTransferStep);
             recipeSteps.add(step);
+
+            stepNumber++;
             clearInputFields();
         } catch (NumberFormatException ex) {
             var alert = new Alert(AlertType.ERROR, "Please fill out all fields with valid data.");
@@ -69,29 +75,49 @@ public class CreateRecipeController {
     }
 
     @FXML
+    private void menu() throws IOException {
+        switchToMainView();
+    }
+
+    @FXML
     private void createRecipe() {
-        String recipeName = recipeNameField.getText();
+        var recipeName = recipeNameField.getText();
         if (recipeName == null || recipeName.isEmpty()) {
             var alert = new Alert(AlertType.ERROR, "Recipe name is required.");
             alert.show();
             return;
         }
 
-        // Create the Recipe object and set steps
         var recipe = new Recipe();
         recipe.setName(recipeName);
         recipe.setSteps(recipeSteps);
 
-        // Handle creating the recipe (e.g., save to database or show confirmation)
-        System.out.println("Recipe created: " + recipe.getName());
+        recipeClient.createRecipe(recipe,
+                () -> {
+                    var alert = new Alert(AlertType.INFORMATION, "Recipe created successfully!");
+                    alert.show();
+                    clearInputFields();
+                    try {
+                        switchToMainView();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                },
+                () -> {
+                    var alert = new Alert(AlertType.ERROR, "Failed to create the recipe.");
+                    alert.show();
+                }
+        );
     }
 
     private void clearInputFields() {
-        recipeNameField.clear();
-        stepNumberField.clear();
         targetTempField.clear();
         durationField.clear();
         vesselComboBox.getSelectionModel().clearSelection();
         transferCheckBox.setSelected(false);
+    }
+
+    private void switchToMainView() throws IOException {
+        PivovarApplication.switchScene("view/main-view.fxml");
     }
 }

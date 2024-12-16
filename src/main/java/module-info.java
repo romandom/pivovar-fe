@@ -11,4 +11,5 @@ module cz.diplomka.pivovarfe {
     exports cz.diplomka.pivovarfe;
     exports cz.diplomka.pivovarfe.controller;
     opens cz.diplomka.pivovarfe.controller to javafx.fxml;
+    opens cz.diplomka.pivovarfe.model to com.fasterxml.jackson.databind;
 }

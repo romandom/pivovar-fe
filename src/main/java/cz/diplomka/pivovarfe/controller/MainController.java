@@ -2,13 +2,12 @@ package cz.diplomka.pivovarfe.controller;
 
 import cz.diplomka.pivovarfe.PivovarApplication;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class MainController {
     @FXML
-    private void openHardwareControl() throws IOException, IOException {
+    private void openHardwareControl() throws IOException {
         PivovarApplication.switchScene("view/hardware.fxml");
     }
 
@@ -19,6 +18,6 @@ public class MainController {
 
     @FXML
     private void openRecipeList() throws IOException {
-        PivovarApplication.switchScene("view/recipe_list.fxml");
+        PivovarApplication.switchScene("view/recipe-list-view.fxml");
     }
 }

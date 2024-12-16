@@ -19,8 +19,8 @@ public class PivovarApplication extends Application {
     }
 
     public static void switchScene(String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(PivovarApplication.class.getResource(fxmlPath));
-        Scene scene = new Scene(loader.load(), 800, 480);
+        var loader = new FXMLLoader(PivovarApplication.class.getResource(fxmlPath));
+        var scene = new Scene(loader.load(), 800, 480);
         primaryStage.setScene(scene);
     }
 

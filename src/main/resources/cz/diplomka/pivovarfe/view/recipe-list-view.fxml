@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_CENTER" stylesheets="@styles/recipe-list-view.css" fx:controller="cz.diplomka.pivovarfe.controller.RecipeListController">
+
+    <Label text="Recipe List" styleClass="header-label" />
+
+    <ListView fx:id="recipeListView" maxWidth="400" maxHeight="300" />
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Menu" onAction="#menu"/>
+        <Button text="Run Recipe"/>
+        <Button text="Delete Recipe"/>
+    </HBox>
+</VBox>
