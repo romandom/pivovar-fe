@@ -8,7 +8,7 @@ import java.io.IOException;
 public class MainController {
     @FXML
     private void openHardwareControl() throws IOException {
-        PivovarApplication.switchScene("view/hardware.fxml");
+        PivovarApplication.switchScene("view/hardware-view.fxml");
     }
 
     @FXML

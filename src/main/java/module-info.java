@@ -5,6 +5,7 @@ module cz.diplomka.pivovarfe {
     requires static lombok;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
 
     opens cz.diplomka.pivovarfe to javafx.fxml;

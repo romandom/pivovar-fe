@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cz.diplomka.pivovarfe.controller.HardwareController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Popis aktuálnej teploty -->
+    <Label text="Aktuálna teplota:" layoutX="50" layoutY="80" />
+    <Label fx:id="temperatureLabel" text="N/A" layoutX="200" layoutY="80" style="-fx-font-size: 16px;" />
+
+    <!-- Log komunikácie -->
+    <TextArea fx:id="logArea" layoutX="50" layoutY="130" prefWidth="400" prefHeight="200" editable="false" />
+
+</AnchorPane>
