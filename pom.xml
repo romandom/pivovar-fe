@@ -68,7 +68,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>cz.diplomka.pivovarfe.PivovarApplication</mainClass>
+                            <mainClass>cz.diplomka.pivovarfe/cz.diplomka.pivovarfe.PivovarApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
