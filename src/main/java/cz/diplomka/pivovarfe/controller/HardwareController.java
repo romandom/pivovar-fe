@@ -16,7 +16,7 @@ public class HardwareController {
 
     @FXML
     public void initialize() {
-        // Inicializácia služby Arduino
+        temperatureLabel.setText("0");
         arduinoService = new ArduinoService("/dev/ttyUSB0", 9600);
         arduinoService.startReading(new ArduinoService.ArduinoCallback() {
             @Override
@@ -29,12 +29,12 @@ public class HardwareController {
             public void onError(Exception ex) {
                 logArea.appendText("Chyba pri čítaní teploty: " + ex.getMessage() + "\n");
             }
-        }, 2); // Čítanie každé 2 sekundy
+        }, 2);
     }
 
     public void closeApp() {
         if (arduinoService != null) {
-            arduinoService.stopReading(); // Ukončenie služby Arduino
+            arduinoService.stopReading();
         }
     }
 }
