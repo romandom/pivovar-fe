@@ -1,40 +1,58 @@
 package cz.diplomka.pivovarfe.controller;
 
-import cz.diplomka.pivovarfe.util.ArduinoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.diplomka.pivovarfe.websocket.WebSocketClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+
+import java.util.Map;
+
 
 public class HardwareController {
     @FXML
-    private Label temperatureLabel;
+    private Label mashTemperatureLabel;
 
     @FXML
-    private TextArea logArea;
+    private Label worthTemperatureLabel;
 
-    private ArduinoService arduinoService;
+    private final WebSocketClient webSocketClient;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public HardwareController() {
+        this.webSocketClient = new WebSocketClient(
+                "ws://localhost:8080/ws",
+                this::updateTemperatureLabels,
+                this::handleError
+        );
+    }
 
     @FXML
     public void initialize() {
-        temperatureLabel.setText("0");
-        arduinoService = new ArduinoService("/dev/ttyUSB0", 9600);
-        arduinoService.startReading(new ArduinoService.ArduinoCallback() {
-            @Override
-            public void onTemperatureReceived(String temperature) {
-                temperatureLabel.setText(temperature); // Aktualizácia Label
-                logArea.appendText("Získaná teplota: " + temperature + "\n");
-            }
-
-            @Override
-            public void onError(Exception ex) {
-                logArea.appendText("Chyba pri čítaní teploty: " + ex.getMessage() + "\n");
-            }
-        }, 2);
+        webSocketClient.connect();
     }
 
-    public void closeApp() {
-        if (arduinoService != null) {
-            arduinoService.stopReading();
+    private void updateTemperatureLabels(String message) {
+
+        Map<String, String> temperatures;
+        try {
+            temperatures = objectMapper.readValue(message, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
+        final String sensor1 = temperatures.get("sensor1");
+        final String sensor2 = temperatures.get("sensor2");
+
+        mashTemperatureLabel.setText(sensor1 + "°C");
+        worthTemperatureLabel.setText(sensor2 + "°C");
+
+    }
+
+    private void handleError(String errorMessage) {
+        System.out.println(errorMessage);
+        mashTemperatureLabel.setText("N/A" + "°C");
+        worthTemperatureLabel.setText("N/A" + "°C");
     }
 }

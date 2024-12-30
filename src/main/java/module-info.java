@@ -5,7 +5,8 @@ module cz.diplomka.pivovarfe {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
-
+    requires spring.websocket;
+    requires spring.messaging;
 
     opens cz.diplomka.pivovarfe to javafx.fxml;
     exports cz.diplomka.pivovarfe;
