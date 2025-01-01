@@ -31,6 +31,11 @@ public class RecipeListController {
         switchToMainView();
     }
 
+    @FXML
+    private void openRecipe() throws IOException {
+        switchToRecipeDetailView();
+    }
+
     private void loadRecipes() {
         recipeClient.getAllRecipesNames(
                 recipes -> {
@@ -39,23 +44,6 @@ public class RecipeListController {
                 },
                 this::showErrorAlert
         );
-    }
-
-    private void handleStartRecipe() {
-        String selectedRecipeName = recipeListView.getSelectionModel().getSelectedItem();
-
-        if (selectedRecipeName == null) {
-            showInfoAlert("Vyberte recept", "Prosím vyberte recept, ktorý chcete spustiť.");
-            return;
-        }
-
-        Long selectedRecipeId = getRecipeIdByName(selectedRecipeName);
-
-        if (selectedRecipeId != null) {
-            showInfoAlert("Spustenie receptu", "Recept " + selectedRecipeName + " bol úspešne spustený.");
-        } else {
-            showErrorAlert();
-        }
     }
 
     private void handleDeleteRecipe() {
@@ -110,5 +98,27 @@ public class RecipeListController {
 
     private void switchToMainView() throws IOException {
         PivovarApplication.switchScene("view/main-view.fxml");
+    }
+
+    private void switchToRecipeDetailView() throws IOException {
+        String selectedRecipeName = recipeListView.getSelectionModel().getSelectedItem();
+
+        if (selectedRecipeName == null) {
+            showInfoAlert("Vyberte recept", "Prosím vyberte recept, ktorý chcete otvoriť.");
+            return;
+        }
+
+        Long selectedRecipeId = getRecipeIdByName(selectedRecipeName);
+
+        if (selectedRecipeId == null) {
+            showErrorAlert();
+            return;
+        }
+
+        PivovarApplication.switchScene("view/recipe-detail.fxml", controller -> {
+            if (controller instanceof RecipeDetailController) {
+                ((RecipeDetailController) controller).setRecipeId(selectedRecipeId);
+            }
+        });
     }
 }

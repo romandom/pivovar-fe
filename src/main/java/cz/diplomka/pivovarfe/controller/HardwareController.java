@@ -42,11 +42,11 @@ public class HardwareController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        final String sensor1 = temperatures.get("sensor1");
-        final String sensor2 = temperatures.get("sensor2");
+        final String mashTemperature = temperatures.get("mashTemperature");
+        final String worthTemperature = temperatures.get("worthTemperature");
 
-        mashTemperatureLabel.setText(sensor1 + "°C");
-        worthTemperatureLabel.setText(sensor2 + "°C");
+        mashTemperatureLabel.setText(mashTemperature + "°C");
+        worthTemperatureLabel.setText(worthTemperature + "°C");
 
     }
 

@@ -11,7 +11,7 @@
 
     <HBox spacing="10" alignment="CENTER">
         <Button text="Menu" onAction="#menu"/>
-        <Button text="Run Recipe"/>
+        <Button text="Run Recipe" onAction="#openRecipe"/>
         <Button text="Delete Recipe"/>
     </HBox>
 </VBox>

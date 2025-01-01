@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class PivovarApplication extends Application {
     private static Stage primaryStage;
@@ -24,6 +25,19 @@ public class PivovarApplication extends Application {
         var scene = new Scene(loader.load(), 800, 480);
 
         // Pridanie softvérovej klávesnice
+        attachSoftKeyboardListeners(scene);
+
+        primaryStage.setScene(scene);
+    }
+
+    public static void switchScene(String fxmlPath, Consumer<Object> controllerInitializer) throws IOException {
+        FXMLLoader loader = new FXMLLoader(PivovarApplication.class.getResource(fxmlPath));
+        Scene scene = new Scene(loader.load(), 800, 480);
+
+        if (controllerInitializer != null) {
+            controllerInitializer.accept(loader.getController());
+        }
+
         attachSoftKeyboardListeners(scene);
 
         primaryStage.setScene(scene);

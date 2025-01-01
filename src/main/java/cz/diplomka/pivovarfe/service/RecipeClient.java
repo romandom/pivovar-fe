@@ -70,4 +70,30 @@ public class RecipeClient {
         new Thread(task).start();
     }
 
+    public void getRecipeDetail(Long id, Consumer<Recipe> onSuccess, Runnable onFailure) {
+        var task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                var request = HttpRequest.newBuilder()
+                        .uri(URI.create(baseUrl + "/recipe/" + id)) // Nastavenie URL s ID
+                        .header("Content-Type", "application/json")
+                        .GET()
+                        .build();
+
+                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+                if (response.statusCode() == 200) {
+                    var recipe = objectMapper.readValue(response.body(), Recipe.class);
+                    Platform.runLater(() -> onSuccess.accept(recipe));
+                } else {
+                    Platform.runLater(onFailure);
+                }
+                return null;
+            }
+        };
+
+        new Thread(task).start();
+    }
+
+
 }

@@ -5,10 +5,6 @@ import cz.diplomka.pivovarfe.constant.BrewingVessel;
 import cz.diplomka.pivovarfe.model.Recipe;
 import cz.diplomka.pivovarfe.model.RecipeStep;
 import cz.diplomka.pivovarfe.service.RecipeClient;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+
+import static cz.diplomka.pivovarfe.util.TableColumnFactory.*;
+import static cz.diplomka.pivovarfe.util.TableColumnFactory.configureBooleanColumn;
 
 public class CreateRecipeController {
 
@@ -45,13 +44,7 @@ public class CreateRecipeController {
     @FXML
     public void initialize() {
         vesselComboBox.getItems().setAll(BrewingVessel.values());
-
-        stepNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getStepNumber()).asObject());
-        targetTempColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTargetTemperature()).asObject());
-        durationColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getDuration()).asObject());
-        vesselColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVessel().toString()));
-        transferColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isTransferStep()).asObject());
-
+        createCellsOfTable();
         stepsTable.setItems(recipeSteps);
     }
 
@@ -119,5 +112,13 @@ public class CreateRecipeController {
 
     private void switchToMainView() throws IOException {
         PivovarApplication.switchScene("view/main-view.fxml");
+    }
+
+    private void createCellsOfTable() {
+        configureIntegerColumn(stepNumberColumn, RecipeStep::getStepNumber);
+        configureDoubleColumn(targetTempColumn, RecipeStep::getTargetTemperature);
+        configureIntegerColumn(durationColumn, RecipeStep::getDuration);
+        configureStringColumn(vesselColumn, step -> step.getVessel().toString());
+        configureBooleanColumn(transferColumn, RecipeStep::isTransferStep);
     }
 }

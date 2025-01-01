@@ -1,5 +1,6 @@
 package cz.diplomka.pivovarfe.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.diplomka.pivovarfe.constant.BrewingVessel;
 
@@ -23,7 +24,24 @@ public class RecipeStep {
     @JsonProperty("isTransferStep")
     private boolean isTransferStep;
 
+
     public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isTransferStep) {
+        this.stepNumber = stepNumber;
+        this.targetTemperature = targetTemperature;
+        this.duration = duration;
+        this.vessel = vessel;
+        this.isTransferStep = isTransferStep;
+    }
+
+    @JsonCreator
+    public RecipeStep(
+            @JsonProperty("id") Long id,
+            @JsonProperty("stepNumber") int stepNumber,
+            @JsonProperty("targetTemperature") double targetTemperature,
+            @JsonProperty("duration") int duration,
+            @JsonProperty("vessel") BrewingVessel vessel,
+            @JsonProperty("transferStep") boolean isTransferStep) {
+        this.id = id;
         this.stepNumber = stepNumber;
         this.targetTemperature = targetTemperature;
         this.duration = duration;
