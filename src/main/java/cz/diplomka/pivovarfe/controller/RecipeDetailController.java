@@ -1,7 +1,9 @@
 package cz.diplomka.pivovarfe.controller;
 
+import cz.diplomka.pivovarfe.constant.ViewPath;
 import cz.diplomka.pivovarfe.model.RecipeStep;
 import cz.diplomka.pivovarfe.service.RecipeClient;
+import cz.diplomka.pivovarfe.util.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.io.IOException;
 import java.util.List;
 
 import static cz.diplomka.pivovarfe.util.TableColumnFactory.*;
@@ -32,6 +35,8 @@ public class RecipeDetailController {
 
     private final RecipeClient recipeClient;
 
+    private Long recipeId;
+
     public RecipeDetailController() {
         this.recipeClient = new RecipeClient();
     }
@@ -41,9 +46,9 @@ public class RecipeDetailController {
     }
 
     private void loadRecipeDetails(Long recipeId) {
+        this.recipeId = recipeId;
         recipeClient.getRecipeDetail(recipeId,
                 recipe -> {
-                    System.out.println(recipe.getName());
                     createCellsOfTable();
                     recipeNameLabel.setText(recipe.getName());
                     setRecipeStepsTable(recipe.getSteps());
@@ -51,6 +56,16 @@ public class RecipeDetailController {
                 () -> System.out.println("Cannot load recipe with id: " + recipeId)
         );
         System.out.println("Loading details for recipe ID: " + recipeId);
+    }
+
+    @FXML
+    public void openRecipes() throws IOException {
+        SceneSwitcher.switchScene(ViewPath.RECIPE_LIST);
+    }
+
+    @FXML
+    public void startRecipe() throws IOException {
+        switchToRecipeStartView();
     }
 
     private void createCellsOfTable() {
@@ -64,5 +79,13 @@ public class RecipeDetailController {
     private void setRecipeStepsTable(List<RecipeStep> steps) {
         final ObservableList<RecipeStep> observableRecipeSteps = FXCollections.observableArrayList(steps);
         stepsTable.setItems(observableRecipeSteps);
+    }
+
+    private void switchToRecipeStartView() throws IOException {
+        SceneSwitcher.switchScene(ViewPath.START, controller -> {
+            if (controller instanceof StartController) {
+                ((StartController) controller).setRecipeId(recipeId);
+            }
+        });
     }
 }

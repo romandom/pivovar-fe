@@ -1,7 +1,8 @@
 package cz.diplomka.pivovarfe.controller;
 
-import cz.diplomka.pivovarfe.PivovarApplication;
+import cz.diplomka.pivovarfe.constant.ViewPath;
 import cz.diplomka.pivovarfe.service.RecipeClient;
+import cz.diplomka.pivovarfe.util.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -28,7 +29,7 @@ public class RecipeListController {
 
     @FXML
     private void menu() throws IOException {
-        switchToMainView();
+        SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
     }
 
     @FXML
@@ -44,32 +45,6 @@ public class RecipeListController {
                 },
                 this::showErrorAlert
         );
-    }
-
-    private void handleDeleteRecipe() {
-        String selectedRecipeName = recipeListView.getSelectionModel().getSelectedItem();
-
-        if (selectedRecipeName == null) {
-            showInfoAlert("Vyberte recept", "Prosím vyberte recept, ktorý chcete vymazať.");
-            return;
-        }
-
-        Long selectedRecipeId = getRecipeIdByName(selectedRecipeName);
-
-        if (selectedRecipeId == null) {
-            showErrorAlert();
-            return;
-        }
-
-//        recipeClient.deleteRecipe(
-//                selectedRecipeId,
-//                () -> {
-//                    recipeListView.getItems().remove(selectedRecipeName);
-//                    recipeMap.remove(selectedRecipeId);
-//                    showInfoAlert("Recept vymazaný", "Recept " + selectedRecipeName + " bol úspešne vymazaný.");
-//                },
-//                this::showErrorAlert
-//        );
     }
 
     private Long getRecipeIdByName(String recipeName) {
@@ -96,10 +71,6 @@ public class RecipeListController {
         alert.showAndWait();
     }
 
-    private void switchToMainView() throws IOException {
-        PivovarApplication.switchScene("view/main-view.fxml");
-    }
-
     private void switchToRecipeDetailView() throws IOException {
         String selectedRecipeName = recipeListView.getSelectionModel().getSelectedItem();
 
@@ -108,17 +79,22 @@ public class RecipeListController {
             return;
         }
 
-        Long selectedRecipeId = getRecipeIdByName(selectedRecipeName);
+        final Long selectedRecipeId = getRecipeIdByName(selectedRecipeName);
 
         if (selectedRecipeId == null) {
             showErrorAlert();
             return;
         }
 
-        PivovarApplication.switchScene("view/recipe-detail.fxml", controller -> {
+        switchToRecipeDetailView(selectedRecipeId);
+    }
+
+    private void switchToRecipeDetailView(Long selectedRecipeId) throws IOException {
+        SceneSwitcher.switchScene(ViewPath.RECIPE_DETAIL, controller -> {
             if (controller instanceof RecipeDetailController) {
                 ((RecipeDetailController) controller).setRecipeId(selectedRecipeId);
             }
         });
     }
+
 }

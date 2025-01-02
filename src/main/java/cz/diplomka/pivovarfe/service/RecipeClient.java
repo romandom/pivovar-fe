@@ -1,99 +1,56 @@
 package cz.diplomka.pivovarfe.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.diplomka.pivovarfe.model.Recipe;
-import javafx.concurrent.Task;
+import cz.diplomka.pivovarfe.util.HttpClientHelper;
 import javafx.application.Platform;
 
-import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class RecipeClient {
 
     private final String baseUrl = "http://localhost:8080";
-    private final HttpClient httpClient = HttpClient.newHttpClient();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final HttpClientHelper httpClientHelper = new HttpClientHelper();
 
     public void createRecipe(Recipe recipe, Runnable onSuccess, Runnable onFailure) {
-        var task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                var json = objectMapper.writeValueAsString(recipe);
-
-                var request = HttpRequest.newBuilder()
-                        .uri(URI.create(baseUrl + "/recipe/create"))
-                        .header("Content-Type", "application/json")
-                        .POST(HttpRequest.BodyPublishers.ofString(json, StandardCharsets.UTF_8))
-                        .build();
-
-                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-                if (response.statusCode() == 200) {
-                    Platform.runLater(onSuccess);
-                } else {
-                    Platform.runLater(onFailure);
-                }
-                return null;
-            }
-        };
-
-        new Thread(task).start();
+        String endpoint = baseUrl + "/recipe/create";
+        httpClientHelper.sendRequest(
+                endpoint,
+                "POST",
+                HttpRequest.BodyPublishers.ofString(httpClientHelper.toJson(recipe)),
+                response -> Platform.runLater(onSuccess),
+                () -> Platform.runLater(onFailure)
+        );
     }
 
     public void getAllRecipesNames(Consumer<Map<Long, String>> onSuccess, Runnable onFailure) {
-        var task = new Task<Map<Long, String>>() {
-            @Override
-            protected Map<Long, String> call() throws Exception {
-                var request = HttpRequest.newBuilder()
-                        .uri(URI.create(baseUrl + "/recipe/names"))
-                        .GET()
-                        .build();
-
-                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-                if (response.statusCode() == 200) {
-                    return objectMapper.readValue(response.body(), new TypeReference<>() {});
-                } else {
-                    throw new RuntimeException("Failed to load recipes");
-                }
-            }
-        };
-
-        task.setOnSucceeded(event -> onSuccess.accept(task.getValue()));
-        task.setOnFailed(event -> Platform.runLater(onFailure));
-        new Thread(task).start();
+        String endpoint = baseUrl + "/recipe/names";
+        httpClientHelper.sendRequest(
+                endpoint,
+                "GET",
+                HttpRequest.BodyPublishers.noBody(),
+                response -> {
+                    Map<Long, String> result = httpClientHelper.fromJson(response.body(), new TypeReference<>() {
+                    });
+                    Platform.runLater(() -> onSuccess.accept(result));
+                },
+                () -> Platform.runLater(onFailure)
+        );
     }
 
     public void getRecipeDetail(Long id, Consumer<Recipe> onSuccess, Runnable onFailure) {
-        var task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                var request = HttpRequest.newBuilder()
-                        .uri(URI.create(baseUrl + "/recipe/" + id)) // Nastavenie URL s ID
-                        .header("Content-Type", "application/json")
-                        .GET()
-                        .build();
-
-                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-                if (response.statusCode() == 200) {
-                    var recipe = objectMapper.readValue(response.body(), Recipe.class);
+        String endpoint = baseUrl + "/recipe/" + id;
+        httpClientHelper.sendRequest(
+                endpoint,
+                "GET",
+                HttpRequest.BodyPublishers.noBody(),
+                response -> {
+                    Recipe recipe = httpClientHelper.fromJson(response.body(), Recipe.class);
                     Platform.runLater(() -> onSuccess.accept(recipe));
-                } else {
-                    Platform.runLater(onFailure);
-                }
-                return null;
-            }
-        };
-
-        new Thread(task).start();
+                },
+                () -> Platform.runLater(onFailure)
+        );
     }
-
-
 }

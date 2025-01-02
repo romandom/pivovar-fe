@@ -29,10 +29,10 @@
          </columns>
       </TableView>
    </ScrollPane>
-   <Button layoutX="213.0" layoutY="337.0" mnemonicParsing="false"
+   <Button layoutX="213.0" layoutY="337.0" mnemonicParsing="false" onAction="#openRecipes"
            style="-fx-background-color: #a0a0a0; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12px 24px; -fx-border-radius: 5px; -fx-background-radius: 5px;"
            text="Recepty"/>
-   <Button layoutX="503.0" layoutY="337.0" mnemonicParsing="false"
+   <Button layoutX="503.0" layoutY="337.0" mnemonicParsing="false" onAction="#startRecipe"
            style="-fx-background-color: #a0a0a0; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12px 24px; -fx-border-radius: 5px; -fx-background-radius: 5px;"
            text="Spustiť"/>
 </AnchorPane>

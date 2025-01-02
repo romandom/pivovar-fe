@@ -1,6 +1,7 @@
 package cz.diplomka.pivovarfe.controller;
 
-import cz.diplomka.pivovarfe.PivovarApplication;
+import cz.diplomka.pivovarfe.constant.ViewPath;
+import cz.diplomka.pivovarfe.util.SceneSwitcher;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -8,16 +9,16 @@ import java.io.IOException;
 public class MainController {
     @FXML
     private void openHardwareControl() throws IOException {
-        PivovarApplication.switchScene("view/hardware-view.fxml");
+        SceneSwitcher.switchScene(ViewPath.HARDWARE);
     }
 
     @FXML
     private void openRecipeCreate() throws IOException {
-        PivovarApplication.switchScene("view/create-view.fxml");
+        SceneSwitcher.switchScene(ViewPath.CREATE);
     }
 
     @FXML
     private void openRecipeList() throws IOException {
-        PivovarApplication.switchScene("view/recipe-list-view.fxml");
+        SceneSwitcher.switchScene(ViewPath.RECIPE_LIST);
     }
 }

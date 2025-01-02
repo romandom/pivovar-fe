@@ -1,10 +1,11 @@
 package cz.diplomka.pivovarfe.controller;
 
-import cz.diplomka.pivovarfe.PivovarApplication;
 import cz.diplomka.pivovarfe.constant.BrewingVessel;
+import cz.diplomka.pivovarfe.constant.ViewPath;
 import cz.diplomka.pivovarfe.model.Recipe;
 import cz.diplomka.pivovarfe.model.RecipeStep;
 import cz.diplomka.pivovarfe.service.RecipeClient;
+import cz.diplomka.pivovarfe.util.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,17 +19,28 @@ import static cz.diplomka.pivovarfe.util.TableColumnFactory.configureBooleanColu
 
 public class CreateRecipeController {
 
-    @FXML private TextField recipeNameField;
-    @FXML private TextField targetTempField;
-    @FXML private TextField durationField;
-    @FXML private ComboBox<BrewingVessel> vesselComboBox;
-    @FXML private CheckBox transferCheckBox;
-    @FXML private TableView<RecipeStep> stepsTable;
-    @FXML private TableColumn<RecipeStep, Integer> stepNumberColumn;
-    @FXML private TableColumn<RecipeStep, Double> targetTempColumn;
-    @FXML private TableColumn<RecipeStep, Integer> durationColumn;
-    @FXML private TableColumn<RecipeStep, String> vesselColumn;
-    @FXML private TableColumn<RecipeStep, Boolean> transferColumn;
+    @FXML
+    private TextField recipeNameField;
+    @FXML
+    private TextField targetTempField;
+    @FXML
+    private TextField durationField;
+    @FXML
+    private ComboBox<BrewingVessel> vesselComboBox;
+    @FXML
+    private CheckBox transferCheckBox;
+    @FXML
+    private TableView<RecipeStep> stepsTable;
+    @FXML
+    private TableColumn<RecipeStep, Integer> stepNumberColumn;
+    @FXML
+    private TableColumn<RecipeStep, Double> targetTempColumn;
+    @FXML
+    private TableColumn<RecipeStep, Integer> durationColumn;
+    @FXML
+    private TableColumn<RecipeStep, String> vesselColumn;
+    @FXML
+    private TableColumn<RecipeStep, Boolean> transferColumn;
 
     private final ObservableList<RecipeStep> recipeSteps;
     private final RecipeClient recipeClient;
@@ -69,7 +81,7 @@ public class CreateRecipeController {
 
     @FXML
     private void menu() throws IOException {
-        switchToMainView();
+        SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
     }
 
     @FXML
@@ -91,7 +103,7 @@ public class CreateRecipeController {
                     alert.show();
                     clearInputFields();
                     try {
-                        switchToMainView();
+                        SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -108,10 +120,6 @@ public class CreateRecipeController {
         durationField.clear();
         vesselComboBox.getSelectionModel().clearSelection();
         transferCheckBox.setSelected(false);
-    }
-
-    private void switchToMainView() throws IOException {
-        PivovarApplication.switchScene("view/main-view.fxml");
     }
 
     private void createCellsOfTable() {
