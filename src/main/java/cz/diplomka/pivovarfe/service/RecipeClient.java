@@ -2,6 +2,7 @@ package cz.diplomka.pivovarfe.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import cz.diplomka.pivovarfe.model.Recipe;
+import cz.diplomka.pivovarfe.model.StepResponse;
 import cz.diplomka.pivovarfe.util.HttpClientHelper;
 import javafx.application.Platform;
 
@@ -15,7 +16,7 @@ public class RecipeClient {
     private final HttpClientHelper httpClientHelper = new HttpClientHelper();
 
     public void createRecipe(Recipe recipe, Runnable onSuccess, Runnable onFailure) {
-        String endpoint = baseUrl + "/recipe/create";
+        final String endpoint = baseUrl + "/recipe/create";
         httpClientHelper.sendRequest(
                 endpoint,
                 "POST",
@@ -26,7 +27,7 @@ public class RecipeClient {
     }
 
     public void getAllRecipesNames(Consumer<Map<Long, String>> onSuccess, Runnable onFailure) {
-        String endpoint = baseUrl + "/recipe/names";
+        final String endpoint = baseUrl + "/recipe/names";
         httpClientHelper.sendRequest(
                 endpoint,
                 "GET",
@@ -41,7 +42,7 @@ public class RecipeClient {
     }
 
     public void getRecipeDetail(Long id, Consumer<Recipe> onSuccess, Runnable onFailure) {
-        String endpoint = baseUrl + "/recipe/" + id;
+        final String endpoint = baseUrl + "/recipe/" + id;
         httpClientHelper.sendRequest(
                 endpoint,
                 "GET",
@@ -49,6 +50,20 @@ public class RecipeClient {
                 response -> {
                     Recipe recipe = httpClientHelper.fromJson(response.body(), Recipe.class);
                     Platform.runLater(() -> onSuccess.accept(recipe));
+                },
+                () -> Platform.runLater(onFailure)
+        );
+    }
+
+    public void getRecipeStep(Long id, Consumer<StepResponse> onSuccess, Runnable onFailure) {
+        String endpoint = baseUrl + "/recipe/" + id + "/step";
+        httpClientHelper.sendRequest(
+                endpoint,
+                "GET",
+                HttpRequest.BodyPublishers.noBody(),
+                response -> {
+                    StepResponse stepResponse = httpClientHelper.fromJson(response.body(), StepResponse.class);
+                    Platform.runLater(() -> onSuccess.accept(stepResponse));
                 },
                 () -> Platform.runLater(onFailure)
         );

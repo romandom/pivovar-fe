@@ -73,7 +73,7 @@ public class RecipeDetailController {
         configureDoubleColumn(targetTempColumn, RecipeStep::getTargetTemperature);
         configureIntegerColumn(durationColumn, RecipeStep::getDuration);
         configureStringColumn(vesselColumn, step -> step.getVessel().toString());
-        configureBooleanColumn(transferColumn, RecipeStep::isTransferStep);
+        configureBooleanColumn(transferColumn, RecipeStep::isDecoctionStep);
     }
 
     private void setRecipeStepsTable(List<RecipeStep> steps) {

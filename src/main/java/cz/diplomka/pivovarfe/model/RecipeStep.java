@@ -21,16 +21,16 @@ public class RecipeStep {
     @JsonProperty("vessel")
     private BrewingVessel vessel;
 
-    @JsonProperty("isTransferStep")
-    private boolean isTransferStep;
+    @JsonProperty("isDecoctionStep")
+    private boolean isDecoctionStep;
 
 
-    public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isTransferStep) {
+    public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isDecoctionStep) {
         this.stepNumber = stepNumber;
         this.targetTemperature = targetTemperature;
         this.duration = duration;
         this.vessel = vessel;
-        this.isTransferStep = isTransferStep;
+        this.isDecoctionStep = isDecoctionStep;
     }
 
     @JsonCreator
@@ -40,13 +40,13 @@ public class RecipeStep {
             @JsonProperty("targetTemperature") double targetTemperature,
             @JsonProperty("duration") int duration,
             @JsonProperty("vessel") BrewingVessel vessel,
-            @JsonProperty("transferStep") boolean isTransferStep) {
+            @JsonProperty("decoctionStep") boolean isDecoctionStep) {
         this.id = id;
         this.stepNumber = stepNumber;
         this.targetTemperature = targetTemperature;
         this.duration = duration;
         this.vessel = vessel;
-        this.isTransferStep = isTransferStep;
+        this.isDecoctionStep = isDecoctionStep;
     }
 
     public Long getId() {
@@ -89,12 +89,12 @@ public class RecipeStep {
         this.vessel = vessel;
     }
 
-    public boolean isTransferStep() {
-        return isTransferStep;
+    public boolean isDecoctionStep() {
+        return isDecoctionStep;
     }
 
-    public void setTransferStep(boolean transferStep) {
-        isTransferStep = transferStep;
+    public void setTransferStep(boolean decoctionStep) {
+        isDecoctionStep = decoctionStep;
     }
 }
 

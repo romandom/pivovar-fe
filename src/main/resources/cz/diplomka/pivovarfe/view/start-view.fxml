@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cz.diplomka.pivovarfe.controller.StartController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label fx:id="timerLabel" text="05:00" layoutX="250.0" layoutY="200.0"/>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.StartController">
+    <Label fx:id="timerLabel" layoutX="211.0" layoutY="200.0" text="00:00">
+      <font>
+         <Font size="64.0" />
+      </font></Label>
+    <Label fx:id="actualMashTempLabel" layoutX="287.0" layoutY="134.0" text="N/A °C">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+    <Label fx:id="targetMashTempLabel" layoutX="89.0" layoutY="134.0" text="N/A °C">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+    <Label fx:id="actualWorthTempLabel" layoutX="287.0" layoutY="67.0" text="N/A °C">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+    <Label fx:id="targetWorthTempLabel" layoutX="89.0" layoutY="62.0" prefHeight="37.0" prefWidth="67.0" text="N/A °C">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+   <Label layoutX="61.0" layoutY="45.0" prefHeight="17.0" prefWidth="123.0" text="Aktuálna teplota Mash" />
+   <Label layoutX="250.0" layoutY="45.0" prefHeight="17.0" prefWidth="171.0" text="Požadovaná teplota Mash" />
+   <Label layoutX="54.0" layoutY="99.0" prefHeight="17.0" prefWidth="140.0" text="Aktuálna teplota Worth" />
+   <Label layoutX="248.0" layoutY="99.0" prefHeight="17.0" prefWidth="171.0" text="Požadovaná teplota Worth" />
 </AnchorPane>
