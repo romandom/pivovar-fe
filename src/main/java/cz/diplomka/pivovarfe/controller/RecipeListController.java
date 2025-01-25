@@ -37,6 +37,15 @@ public class RecipeListController {
         switchToRecipeDetailView();
     }
 
+    @FXML
+    private void deleteRecipe() {
+        String selectedRecipeName = recipeListView.getSelectionModel().getSelectedItem();
+        recipeClient.deleteRecipe(getRecipeIdByName(selectedRecipeName),
+                this::loadRecipes,
+                () -> System.out.println("Cannot delete recipe with id " + recipeListView.getSelectionModel().getSelectedItem())
+                );
+    }
+
     private void loadRecipes() {
         recipeClient.getAllRecipesNames(
                 recipes -> {

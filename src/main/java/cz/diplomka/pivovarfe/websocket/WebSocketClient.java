@@ -52,6 +52,14 @@ public class WebSocketClient {
         });
     }
 
+    public void disconnect() {
+        if (stompSession != null && stompSession.isConnected()) {
+            stompSession.disconnect();
+            stompSession = null; // Clear the session reference
+            Platform.runLater(() -> onError.accept("Disconnected from server."));
+        }
+    }
+
     private void subscribeToTopics() {
         if (stompSession != null) {
             stompSession.subscribe("/topic/temperature", new StompSessionHandlerAdapter() {

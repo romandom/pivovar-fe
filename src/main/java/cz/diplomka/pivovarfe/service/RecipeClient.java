@@ -26,6 +26,17 @@ public class RecipeClient {
         );
     }
 
+    public void deleteRecipe(Long id, Runnable onSuccess, Runnable onFailure) {
+        final String endpoint = baseUrl + "/recipe/delete/" + id;
+        httpClientHelper.sendRequest(
+                endpoint,
+                "DELETE",
+                HttpRequest.BodyPublishers.noBody(),
+                response -> Platform.runLater(onSuccess),
+                () -> Platform.runLater(onFailure)
+        );
+    }
+
     public void getAllRecipesNames(Consumer<Map<Long, String>> onSuccess, Runnable onFailure) {
         final String endpoint = baseUrl + "/recipe/names";
         httpClientHelper.sendRequest(

@@ -36,13 +36,15 @@ public class HttpClientHelper {
                     request = requestBuilder.POST(bodyPublisher).build();
                 } else if ("GET".equalsIgnoreCase(method)) {
                     request = requestBuilder.GET().build();
+                } else if ("DELETE".equalsIgnoreCase(method)) {
+                    request = requestBuilder.DELETE().build();
                 } else {
                     throw new UnsupportedOperationException("HTTP method not supported: " + method);
                 }
 
                 var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-                if (response.statusCode() == 200) {
+                if (response.statusCode() == 200 || response.statusCode() == 204) {
                     onSuccess.accept(response);
                 } else {
                     Platform.runLater(onFailure);

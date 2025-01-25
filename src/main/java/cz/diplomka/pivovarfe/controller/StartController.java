@@ -3,16 +3,24 @@ package cz.diplomka.pivovarfe.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.diplomka.pivovarfe.constant.ViewPath;
 import cz.diplomka.pivovarfe.model.StepResponse;
 import cz.diplomka.pivovarfe.service.RecipeClient;
+import cz.diplomka.pivovarfe.service.SessionClient;
 import cz.diplomka.pivovarfe.util.CountdownTimer;
+import cz.diplomka.pivovarfe.util.SceneSwitcher;
 import cz.diplomka.pivovarfe.websocket.WebSocketClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class StartController {
 
@@ -34,12 +42,14 @@ public class StartController {
     private double actualWorthTemp;
 
     private final RecipeClient recipeClient;
+    private final SessionClient sessionClient;
     private final WebSocketClient webSocketClient;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public StartController() {
         this.recipeClient = new RecipeClient();
+        this.sessionClient = new SessionClient();
         this.webSocketClient = new WebSocketClient(
                 "ws://localhost:8080/ws",
                 this::updateTemperatureLabels,
@@ -54,6 +64,23 @@ public class StartController {
     }
 
     public void initialize() {
+    }
+
+    public void stopButton() {
+        sessionClient.changeSessionStatus(() -> {
+                    var alert = new Alert(Alert.AlertType.INFORMATION, "Varenie ukončené!");
+                    alert.show();
+                    webSocketClient.disconnect();
+                    try {
+                        SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                },
+                () -> {
+                    var alert = new Alert(Alert.AlertType.ERROR, "Nastala chyba");
+                    alert.show();
+                });
     }
 
     private void startNextTimerAsync() {
@@ -95,15 +122,9 @@ public class StartController {
     }
 
     private void waitForTargetTemperature(StepResponse response) {
-        CompletableFuture.runAsync(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
+        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
 
+            Runnable checkTemperatureTask = () -> {
                 double targetTempMash = response.getTargetTempMash();
                 double targetTempWorth = response.getTargetTempWorth();
 
@@ -112,10 +133,13 @@ public class StartController {
                         System.out.println("Target temperature reached. Starting timer...");
                         startTimer(response);
                     });
-                    break;
+
+                    scheduler.shutdown();
                 }
-            }
-        });
+            };
+
+            scheduler.scheduleAtFixedRate(checkTemperatureTask, 0, 1, TimeUnit.SECONDS);
+        }
     }
 
     private void startTimer(StepResponse response) {
@@ -142,7 +166,7 @@ public class StartController {
         if (countdownTimer != null) {
             countdownTimer.stop();
         }
-        timerLabel.setText("Stopped");
+        timerLabel.setText("00:00");
     }
 
     private void updateTemperatureLabels(String message) {

@@ -11,7 +11,7 @@
 
     <HBox spacing="30" alignment="CENTER">
         <Button styleClass="create-button" text="Menu" onAction="#menu"/>
-        <Button styleClass="create-button" text="Spustiť" onAction="#openRecipe"/>
-        <Button styleClass="create-button" text="Vymazať"/>
+        <Button styleClass="create-button" text="Otvoriť" onAction="#openRecipe"/>
+        <Button styleClass="create-button" text="Vymazať" onAction="#deleteRecipe"/>
     </HBox>
 </VBox>
