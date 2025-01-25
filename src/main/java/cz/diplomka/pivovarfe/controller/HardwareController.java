@@ -38,7 +38,8 @@ public class HardwareController {
 
         Map<String, String> temperatures;
         try {
-            temperatures = objectMapper.readValue(message, new TypeReference<>() {});
+            temperatures = objectMapper.readValue(message, new TypeReference<>() {
+            });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

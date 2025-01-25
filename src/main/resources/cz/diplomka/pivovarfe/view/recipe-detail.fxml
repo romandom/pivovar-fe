@@ -8,31 +8,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #004d00;"
-            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="cz.diplomka.pivovarfe.controller.RecipeDetailController">
-   <Label fx:id="recipeNameLabel" layoutX="336.0" layoutY="36.0" style="-fx-text-fill: white; -fx-font-weight: 800;"
-          text="Recipe name" textAlignment="CENTER">
+<AnchorPane prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #004d00;" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.RecipeDetailController">
+   <Label fx:id="recipeNameLabel" layoutX="336.0" layoutY="36.0" style="-fx-text-fill: white; -fx-font-weight: 800;" text="Recipe name" textAlignment="CENTER">
       <font>
-         <Font size="24.0"/>
+         <Font size="24.0" />
       </font>
    </Label>
-   <ScrollPane fitToWidth="true" layoutX="206.0" layoutY="104.0" prefHeight="182.0"
-               style="-fx-background-color: white;">
-      <TableView fx:id="stepsTable" styleClass="table-view">
+   <ScrollPane fitToWidth="true" layoutX="190.0" layoutY="120.0" prefHeight="182.0" prefWidth="420.0" style="-fx-background-color: white;">
+      <TableView fx:id="stepsTable" prefHeight="186.0" prefWidth="0.0">
          <columns>
-            <TableColumn fx:id="stepNumberColumn" text="Step Number"/>
-            <TableColumn fx:id="targetTempColumn" text="Target Temperature"/>
-            <TableColumn fx:id="durationColumn" text="Duration (seconds)"/>
-            <TableColumn fx:id="vesselColumn" text="Vessel"/>
-            <TableColumn fx:id="transferColumn" text="Is Transfer"/>
+            <TableColumn fx:id="stepNumberColumn" text="Krok" />
+            <TableColumn fx:id="targetTempColumn" text="Teplota" />
+            <TableColumn fx:id="durationColumn" text="Trvanie" />
+            <TableColumn fx:id="vesselColumn" text="Hrniec" />
+            <TableColumn fx:id="transferColumn" text="Dekokčný" />
          </columns>
       </TableView>
    </ScrollPane>
-   <Button layoutX="213.0" layoutY="337.0" mnemonicParsing="false" onAction="#openRecipes"
-           style="-fx-background-color: #a0a0a0; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12px 24px; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-           text="Recepty"/>
-   <Button layoutX="503.0" layoutY="337.0" mnemonicParsing="false" onAction="#startRecipe"
-           style="-fx-background-color: #a0a0a0; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12px 24px; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-           text="Spustiť"/>
+   <Button layoutX="240.0" layoutY="340.0" mnemonicParsing="false" onAction="#openRecipes" styleClass="create-button" text="Recepty" />
+   <Button layoutX="450.0" layoutY="340.0" mnemonicParsing="false" onAction="#startRecipe" styleClass="create-button" text="Spustiť" />
 </AnchorPane>

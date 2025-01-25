@@ -24,6 +24,9 @@ public class RecipeStep {
     @JsonProperty("isDecoctionStep")
     private boolean isDecoctionStep;
 
+    @JsonProperty("process")
+    private boolean process;
+
 
     public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isDecoctionStep) {
         this.stepNumber = stepNumber;
@@ -95,6 +98,18 @@ public class RecipeStep {
 
     public void setTransferStep(boolean decoctionStep) {
         isDecoctionStep = decoctionStep;
+    }
+
+    public void setDecoctionStep(boolean decoctionStep) {
+        isDecoctionStep = decoctionStep;
+    }
+
+    public boolean isProcess() {
+        return process;
+    }
+
+    public void setProcess(boolean process) {
+        this.process = process;
     }
 }
 

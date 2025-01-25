@@ -13,7 +13,8 @@ public class PivovarApplication extends Application {
     public void start(Stage stage) throws IOException {
         SceneSwitcher.setPrimaryStage(stage);
         stage.setTitle("Brewing Application");
-        System.out.println(ViewPath.MAIN_VIEW.getPath());
+        stage.setWidth(800);
+        stage.setHeight(480);
         SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
         stage.show();
     }
