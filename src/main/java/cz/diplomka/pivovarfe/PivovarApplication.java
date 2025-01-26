@@ -15,6 +15,7 @@ public class PivovarApplication extends Application {
         stage.setTitle("Brewing Application");
         stage.setWidth(800);
         stage.setHeight(480);
+        stage.setFullScreen(true);
         SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
         stage.show();
     }

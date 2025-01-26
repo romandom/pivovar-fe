@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane stylesheets="@styles/styles.css" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.CreateRecipeController" styleClass="bg">
+<AnchorPane prefHeight="480.0" prefWidth="800.0" styleClass="bg" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.CreateRecipeController">
     <ScrollPane fitToWidth="true" layoutX="187.0" layoutY="201.0" prefHeight="154.0" prefWidth="404.0" style="-fx-background-color: white;">
       <content>
            <TableView fx:id="stepsTable" prefHeight="151.0" prefWidth="398.0">
@@ -20,6 +20,7 @@
                    <TableColumn fx:id="durationColumn" text="Trvanie" />
                    <TableColumn fx:id="vesselColumn" text="Hrniec" />
                    <TableColumn fx:id="transferColumn" text="Dekokčný" />
+                   <TableColumn fx:id="processColumn" text="Proces" />
                </columns>
            </TableView>
       </content>
@@ -28,10 +29,11 @@
    <TextField fx:id="targetTempField" layoutX="187.0" layoutY="101.0" promptText="Teplota" />
    <Line endX="300.5999755859375" endY="-1.52587890625E-5" layoutX="340.0" layoutY="75.0" startX="-181.0" startY="-1.52587890625E-5" />
    <TextField fx:id="durationField" layoutX="187.0" layoutY="140.0" promptText="Trvanie" />
-   <ComboBox fx:id="vesselComboBox" layoutX="432.0" layoutY="101.0" prefWidth="150.0" />
-   <CheckBox fx:id="transferCheckBox" layoutX="470.0" layoutY="144.0" mnemonicParsing="false" text="Dekokčný" textFill="WHITE" />
-   <Button styleClass="create-button" layoutX="483.0" layoutY="381.0" mnemonicParsing="false" onAction="#createRecipe" prefHeight="32.0" prefWidth="82.0" text="Uložiť" />
-   <Button styleClass="create-button" layoutX="641.0" layoutY="224.0" mnemonicParsing="false" onAction="#addStep" prefHeight="32.0" prefWidth="82.0" text="Pridať" />
-   <Button styleClass="create-button" layoutX="641.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" text="Vymazať" />
-   <Button styleClass="create-button" layoutX="245.0" layoutY="381.0" mnemonicParsing="false" onAction="#menu" prefHeight="32.0" prefWidth="82.0" text="Menu" />
+   <ChoiceBox fx:id="vesselChoiceBox" layoutX="432.0" layoutY="101.0" prefWidth="150.0" />
+   <CheckBox fx:id="transferCheckBox" layoutX="641.0" layoutY="150.0" mnemonicParsing="false" text="Dekokčný" textFill="WHITE" />
+   <Button layoutX="447.0" layoutY="381.0" mnemonicParsing="false" onAction="#createRecipe" prefHeight="32.0" prefWidth="82.0" styleClass="create-button" text="Uložiť" />
+   <Button layoutX="641.0" layoutY="224.0" mnemonicParsing="false" onAction="#addStep" prefHeight="32.0" prefWidth="82.0" styleClass="create-button" text="Pridať" />
+   <Button layoutX="641.0" layoutY="278.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="82.0" styleClass="create-button" text="Vymazať" />
+   <Button layoutX="217.0" layoutY="381.0" mnemonicParsing="false" onAction="#menu" prefHeight="32.0" prefWidth="82.0" styleClass="create-button" text="Menu" />
+   <ChoiceBox fx:id="processChoiceBox" layoutX="432.0" layoutY="140.0" prefWidth="150.0" />
 </AnchorPane>

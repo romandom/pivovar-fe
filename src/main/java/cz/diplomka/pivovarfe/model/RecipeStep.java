@@ -2,6 +2,7 @@ package cz.diplomka.pivovarfe.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.diplomka.pivovarfe.constant.BrewingProcess;
 import cz.diplomka.pivovarfe.constant.BrewingVessel;
 
 public class RecipeStep {
@@ -25,15 +26,16 @@ public class RecipeStep {
     private boolean isDecoctionStep;
 
     @JsonProperty("process")
-    private boolean process;
+    private BrewingProcess process;
 
 
-    public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isDecoctionStep) {
+    public RecipeStep(int stepNumber, double targetTemperature, int duration, BrewingVessel vessel, boolean isDecoctionStep, BrewingProcess process) {
         this.stepNumber = stepNumber;
         this.targetTemperature = targetTemperature;
         this.duration = duration;
         this.vessel = vessel;
         this.isDecoctionStep = isDecoctionStep;
+        this.process = process;
     }
 
     @JsonCreator
@@ -43,13 +45,15 @@ public class RecipeStep {
             @JsonProperty("targetTemperature") double targetTemperature,
             @JsonProperty("duration") int duration,
             @JsonProperty("vessel") BrewingVessel vessel,
-            @JsonProperty("decoctionStep") boolean isDecoctionStep) {
+            @JsonProperty("decoctionStep") boolean isDecoctionStep,
+            @JsonProperty("process") BrewingProcess process) {
         this.id = id;
         this.stepNumber = stepNumber;
         this.targetTemperature = targetTemperature;
         this.duration = duration;
         this.vessel = vessel;
         this.isDecoctionStep = isDecoctionStep;
+        this.process = process;
     }
 
     public Long getId() {
@@ -104,11 +108,11 @@ public class RecipeStep {
         isDecoctionStep = decoctionStep;
     }
 
-    public boolean isProcess() {
+    public BrewingProcess getProcess() {
         return process;
     }
 
-    public void setProcess(boolean process) {
+    public void setProcess(BrewingProcess process) {
         this.process = process;
     }
 }

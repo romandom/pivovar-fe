@@ -31,6 +31,8 @@ public class RecipeDetailController {
     @FXML
     private TableColumn<RecipeStep, Boolean> transferColumn;
     @FXML
+    private TableColumn<RecipeStep, String> processColumn;
+    @FXML
     private Label recipeNameLabel;
 
     private final RecipeClient recipeClient;
@@ -74,6 +76,7 @@ public class RecipeDetailController {
         configureIntegerColumn(durationColumn, RecipeStep::getDuration);
         configureStringColumn(vesselColumn, step -> step.getVessel().toString());
         configureBooleanColumn(transferColumn, RecipeStep::isDecoctionStep);
+        configureStringColumn(processColumn, step -> step.getProcess().toString());
     }
 
     private void setRecipeStepsTable(List<RecipeStep> steps) {

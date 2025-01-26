@@ -1,5 +1,6 @@
 package cz.diplomka.pivovarfe.controller;
 
+import cz.diplomka.pivovarfe.constant.BrewingProcess;
 import cz.diplomka.pivovarfe.constant.BrewingVessel;
 import cz.diplomka.pivovarfe.constant.ViewPath;
 import cz.diplomka.pivovarfe.model.Recipe;
@@ -26,9 +27,11 @@ public class CreateRecipeController {
     @FXML
     private TextField durationField;
     @FXML
-    private ComboBox<BrewingVessel> vesselComboBox;
+    private ChoiceBox<BrewingVessel> vesselChoiceBox;
     @FXML
     private CheckBox transferCheckBox;
+    @FXML
+    private ChoiceBox<BrewingProcess> processChoiceBox;
     @FXML
     private TableView<RecipeStep> stepsTable;
     @FXML
@@ -41,6 +44,8 @@ public class CreateRecipeController {
     private TableColumn<RecipeStep, String> vesselColumn;
     @FXML
     private TableColumn<RecipeStep, Boolean> transferColumn;
+    @FXML
+    private TableColumn<RecipeStep, String> processColumn;
 
     private final ObservableList<RecipeStep> recipeSteps;
     private final RecipeClient recipeClient;
@@ -55,7 +60,8 @@ public class CreateRecipeController {
 
     @FXML
     public void initialize() {
-        vesselComboBox.getItems().setAll(BrewingVessel.values());
+        vesselChoiceBox.getItems().setAll(BrewingVessel.values());
+        processChoiceBox.getItems().setAll(BrewingProcess.values());
         createCellsOfTable();
         stepsTable.setItems(recipeSteps);
     }
@@ -65,10 +71,11 @@ public class CreateRecipeController {
         try {
             var targetTemperature = Double.parseDouble(targetTempField.getText());
             var duration = Integer.parseInt(durationField.getText());
-            var vessel = vesselComboBox.getValue();
+            var vessel = vesselChoiceBox.getValue();
             var isTransferStep = transferCheckBox.isSelected();
+            var process = processChoiceBox.getValue();
 
-            var step = new RecipeStep(stepNumber, targetTemperature, duration, vessel, isTransferStep);
+            var step = new RecipeStep(stepNumber, targetTemperature, duration, vessel, isTransferStep,process);
             recipeSteps.add(step);
 
             stepNumber++;
@@ -118,8 +125,9 @@ public class CreateRecipeController {
     private void clearInputFields() {
         targetTempField.clear();
         durationField.clear();
-        vesselComboBox.getSelectionModel().clearSelection();
+        vesselChoiceBox.getSelectionModel().clearSelection();
         transferCheckBox.setSelected(false);
+        processChoiceBox.getSelectionModel().clearSelection();
     }
 
     private void createCellsOfTable() {
@@ -128,5 +136,6 @@ public class CreateRecipeController {
         configureIntegerColumn(durationColumn, RecipeStep::getDuration);
         configureStringColumn(vesselColumn, step -> step.getVessel().toString());
         configureBooleanColumn(transferColumn, RecipeStep::isDecoctionStep);
+        configureStringColumn(processColumn, step -> step.getProcess().toString());
     }
 }

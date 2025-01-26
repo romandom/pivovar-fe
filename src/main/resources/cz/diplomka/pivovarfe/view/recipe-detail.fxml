@@ -22,6 +22,7 @@
             <TableColumn fx:id="durationColumn" text="Trvanie" />
             <TableColumn fx:id="vesselColumn" text="Hrniec" />
             <TableColumn fx:id="transferColumn" text="Dekokčný" />
+            <TableColumn fx:id="processColumn" text="Dekokčný" />
          </columns>
       </TableView>
    </ScrollPane>
