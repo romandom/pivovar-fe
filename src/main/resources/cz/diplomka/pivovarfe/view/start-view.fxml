@@ -4,52 +4,137 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="480.0" prefWidth="800.0" styleClass="bg" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.StartController">
-    <Label fx:id="timerLabel" layoutX="305.0" layoutY="175.0" text="00:00" textFill="WHITE">
-      <font>
-         <Font size="80.0" />
-      </font></Label>
-    <Label fx:id="actualMashTempLabel" layoutX="254.0" layoutY="102.0" text="N/A °C" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font></Label>
-    <Label fx:id="targetMashTempLabel" layoutX="389.0" layoutY="52.0" text="N/A °C" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font></Label>
-    <Label fx:id="actualWorthTempLabel" layoutX="254.0" layoutY="52.0" text="N/A °C" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font></Label>
-    <Label fx:id="targetWorthTempLabel" layoutX="389.0" layoutY="97.0" prefHeight="37.0" prefWidth="67.0" text="N/A °C" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font></Label>
-   <Label layoutX="234.0" layoutY="20.0" prefHeight="17.0" prefWidth="123.0" text="Aktuálna teplota" textFill="WHITE" />
-   <Label layoutX="357.0" layoutY="20.0" prefHeight="17.0" prefWidth="118.0" text="Požadovaná teplota" textFill="WHITE" />
-   <Label layoutX="23.0" layoutY="50.0" prefHeight="30.0" prefWidth="182.0" text="Rmutovacia kaďa" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="20.0" />
-      </font>
-   </Label>
-   <Label layoutX="23.0" layoutY="100.0" prefHeight="30.0" prefWidth="191.0" text="Vystieracia kaďa" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="21.0" />
-      </font>
-   </Label>
-   <ProgressBar layoutX="504.0" layoutY="42.0" prefHeight="47.0" prefWidth="39.0" progress="0.0" rotate="-90.0" />
-   <Label fx:id="actualWorthTempLabel1" layoutX="572.0" layoutY="103.0" text="N/A %" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <ProgressBar layoutX="504.0" layoutY="92.0" prefHeight="48.0" prefWidth="40.0" progress="0.0" rotate="-90.0" />
-   <Label fx:id="actualWorthTempLabel11" layoutX="572.0" layoutY="52.0" text="N/A %" textFill="WHITE">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <Button layoutX="340.0" layoutY="336.0" mnemonicParsing="false" onAction="#stopButton" styleClass="create-button" text="Stop" />
+<AnchorPane prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #e0e1dd;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.StartController">
+   <Pane layoutX="235.0" layoutY="20.0" prefHeight="147.0" prefWidth="551.0" style="-fx-background-color: WHITE; -fx-border-radius: 25px; -fx-background-radius: 5px; -fx-padding: 15px;">
+      <children>
+         <Label layoutX="14.0" layoutY="8.0" prefHeight="29.0" prefWidth="227.0" style="-fx-text-fill: #1b263b;" text="Rmutovacia kaďa" textFill="WHITE">
+            <font>
+               <Font name="Roboto Bold" size="18.0" />
+            </font>
+         </Label>
+         <Pane layoutX="14.0" layoutY="44.0" prefHeight="89.0" prefWidth="145.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="31.0" layoutY="-10.0" prefHeight="49.0" prefWidth="83.0" style="-fx-text-fill: #778da9;" text="Aktuálna:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+                <Label fx:id="actualWorthTempLabel" layoutX="16.0" layoutY="30.0" style="-fx-text-fill: #0d1b2a;" text="N/A °C" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="182.0" layoutY="44.0" prefHeight="89.0" prefWidth="145.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="35.0" layoutY="-10.0" prefHeight="49.0" prefWidth="75.0" style="-fx-text-fill: #778da9;" text="Cieľová:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+                <Label fx:id="targetMashTempLabel" layoutX="13.0" layoutY="28.0" text="N/A °C">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="347.0" layoutY="44.0" prefHeight="89.0" prefWidth="190.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="65.0" layoutY="-10.0" prefHeight="49.0" prefWidth="75.0" style="-fx-text-fill: #778da9;" text="Objem:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+               <ProgressBar layoutX="8.0" layoutY="32.0" prefHeight="40.0" prefWidth="53.0" progress="0.0" rotate="-90.0" />
+               <Label fx:id="volumeMashLabel" layoutX="65.0" layoutY="30.0" text="N/A %">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </children>
+   </Pane>
+   <Pane layoutX="-2.0" layoutY="357.0" prefHeight="138.0" prefWidth="807.0" style="-fx-background-color: #1b263b;">
+      <children>
+         <Label layoutX="233.0" layoutY="33.0" style="-fx-text-fill: WHITE;" text="Prebieha var" textFill="#f9f9fc">
+            <font>
+               <Font name="Roboto Bold" size="60.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Pane layoutX="235.0" layoutY="182.0" prefHeight="147.0" prefWidth="551.0" style="-fx-background-color: WHITE; -fx-border-radius: 25px; -fx-background-radius: 5px; -fx-padding: 15px;">
+      <children>
+         <Label layoutX="14.0" layoutY="8.0" prefHeight="29.0" prefWidth="227.0" style="-fx-text-fill: #1b263b;" text="Vystieracia kaďa" textFill="WHITE">
+            <font>
+               <Font name="Roboto Bold" size="18.0" />
+            </font>
+         </Label>
+         <Pane layoutX="14.0" layoutY="44.0" prefHeight="89.0" prefWidth="145.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="31.0" layoutY="-10.0" prefHeight="49.0" prefWidth="83.0" style="-fx-text-fill: #778da9;" text="Aktuálna:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+                <Label fx:id="actualMashTempLabel" layoutX="13.0" layoutY="27.0" text="N/A °C">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="182.0" layoutY="44.0" prefHeight="89.0" prefWidth="145.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="35.0" layoutY="-10.0" prefHeight="49.0" prefWidth="75.0" style="-fx-text-fill: #778da9;" text="Cieľová:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+                <Label fx:id="targetWorthTempLabel" layoutX="8.0" layoutY="24.0" prefHeight="58.0" prefWidth="129.0" text="N/A °C">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="347.0" layoutY="44.0" prefHeight="89.0" prefWidth="190.0" style="-fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4); -fx-background-color: white; -fx-padding: 15px;" styleClass="borde">
+            <children>
+               <Label layoutX="65.0" layoutY="-10.0" prefHeight="49.0" prefWidth="75.0" style="-fx-text-fill: #778da9;" text="Objem:" textFill="WHITE">
+                  <font>
+                     <Font name="Roboto Bold" size="16.0" />
+                  </font>
+               </Label>
+               <ProgressBar layoutX="9.0" layoutY="32.0" prefHeight="41.0" prefWidth="52.0" progress="0.0" rotate="-90.0" />
+               <Label fx:id="volumeWorthLabel" layoutX="65.0" layoutY="30.0" text="N/A %">
+                  <font>
+                     <Font name="Roboto Bold" size="37.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      </children>
+   </Pane>
+   <Button layoutX="61.0" layoutY="269.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="113.0" style="-fx-background-color: #c1121f; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Stop" />
+   <Pane layoutX="14.0" layoutY="20.0" prefHeight="147.0" prefWidth="206.0" style="-fx-background-color: WHITE; -fx-border-radius: 25px; -fx-background-radius: 5px; -fx-padding: 15px;">
+      <children>
+         <Label layoutX="39.0" layoutY="22.0" prefHeight="29.0" prefWidth="129.0" style="-fx-text-fill: #778da9;" text="Zostávajúci čas:" textFill="WHITE">
+            <font>
+               <Font name="Roboto Bold" size="16.0" />
+            </font>
+         </Label>
+          <Label fx:id="timerLabel" layoutX="26.0" layoutY="51.0" text="00:00">
+            <font>
+               <Font name="Roboto Bold" size="60.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Button layoutX="61.0" layoutY="199.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="113.0" style="-fx-background-color: #219ebc; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Čerpadlo" />
 </AnchorPane>
