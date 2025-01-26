@@ -30,7 +30,7 @@ public class SceneSwitcher {
         if (controllerInitializer != null) {
             controllerInitializer.accept(loader.getController());
         }
-
+        primaryStage.setFullScreen(true);
         primaryStage.setScene(scene);
     }
 
