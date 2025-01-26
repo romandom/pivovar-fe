@@ -22,9 +22,9 @@
                      <Font name="Roboto Bold" size="16.0" />
                   </font>
                </Label>
-                <Label fx:id="actualWorthTempLabel" layoutX="16.0" layoutY="30.0" style="-fx-text-fill: #0d1b2a;" text="N/A °C" textFill="WHITE">
+                <Label fx:id="actualWorthTempLabel" layoutX="14.0" layoutY="36.0" style="-fx-text-fill: #0d1b2a;" text="N/A °C" textFill="WHITE">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
@@ -36,9 +36,9 @@
                      <Font name="Roboto Bold" size="16.0" />
                   </font>
                </Label>
-                <Label fx:id="targetMashTempLabel" layoutX="13.0" layoutY="28.0" text="N/A °C">
+                <Label fx:id="targetMashTempLabel" layoutX="14.0" layoutY="36.0" text="N/A °C">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
@@ -51,9 +51,9 @@
                   </font>
                </Label>
                <ProgressBar layoutX="8.0" layoutY="32.0" prefHeight="40.0" prefWidth="53.0" progress="0.0" rotate="-90.0" />
-               <Label fx:id="volumeMashLabel" layoutX="65.0" layoutY="30.0" text="N/A %">
+               <Label fx:id="volumeMashLabel" layoutX="65.0" layoutY="33.0" text="N/A %">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
@@ -62,7 +62,7 @@
    </Pane>
    <Pane layoutX="-2.0" layoutY="357.0" prefHeight="138.0" prefWidth="807.0" style="-fx-background-color: #1b263b;">
       <children>
-         <Label layoutX="233.0" layoutY="33.0" style="-fx-text-fill: WHITE;" text="Prebieha var" textFill="#f9f9fc">
+         <Label layoutX="253.0" layoutY="6.0" style="-fx-text-fill: WHITE;" text="Prebieha var" textFill="#f9f9fc">
             <font>
                <Font name="Roboto Bold" size="60.0" />
             </font>
@@ -83,9 +83,9 @@
                      <Font name="Roboto Bold" size="16.0" />
                   </font>
                </Label>
-                <Label fx:id="actualMashTempLabel" layoutX="13.0" layoutY="27.0" text="N/A °C">
+                <Label fx:id="actualMashTempLabel" layoutX="14.0" layoutY="36.0" text="N/A °C">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
@@ -97,9 +97,9 @@
                      <Font name="Roboto Bold" size="16.0" />
                   </font>
                </Label>
-                <Label fx:id="targetWorthTempLabel" layoutX="8.0" layoutY="24.0" prefHeight="58.0" prefWidth="129.0" text="N/A °C">
+                <Label fx:id="targetWorthTempLabel" layoutX="14.0" layoutY="25.0" prefHeight="58.0" prefWidth="129.0" text="N/A °C">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
@@ -112,19 +112,19 @@
                   </font>
                </Label>
                <ProgressBar layoutX="9.0" layoutY="32.0" prefHeight="41.0" prefWidth="52.0" progress="0.0" rotate="-90.0" />
-               <Label fx:id="volumeWorthLabel" layoutX="65.0" layoutY="30.0" text="N/A %">
+               <Label fx:id="volumeWorthLabel" layoutX="65.0" layoutY="33.0" text="N/A %">
                   <font>
-                     <Font name="Roboto Bold" size="37.0" />
+                     <Font name="Roboto Bold" size="32.0" />
                   </font>
                </Label>
             </children>
          </Pane>
       </children>
    </Pane>
-   <Button layoutX="61.0" layoutY="269.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="113.0" style="-fx-background-color: #c1121f; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Stop" />
+   <Button layoutX="41.0" layoutY="269.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="155.0" style="-fx-background-color: #c1121f; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Stop" />
    <Pane layoutX="14.0" layoutY="20.0" prefHeight="147.0" prefWidth="206.0" style="-fx-background-color: WHITE; -fx-border-radius: 25px; -fx-background-radius: 5px; -fx-padding: 15px;">
       <children>
-         <Label layoutX="39.0" layoutY="22.0" prefHeight="29.0" prefWidth="129.0" style="-fx-text-fill: #778da9;" text="Zostávajúci čas:" textFill="WHITE">
+         <Label layoutX="33.0" layoutY="22.0" prefHeight="29.0" prefWidth="161.0" style="-fx-text-fill: #778da9;" text="Zostávajúci čas:" textFill="WHITE">
             <font>
                <Font name="Roboto Bold" size="16.0" />
             </font>
@@ -136,5 +136,5 @@
          </Label>
       </children>
    </Pane>
-   <Button layoutX="61.0" layoutY="199.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="113.0" style="-fx-background-color: #219ebc; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Čerpadlo" />
+   <Button layoutX="41.0" layoutY="199.0" mnemonicParsing="false" onAction="#stopButton" prefHeight="49.0" prefWidth="155.0" style="-fx-background-color: #219ebc; -fx-font-family: Roboto; -fx-font-size: 22px; -fx-background-radius: 5px; -fx-font-weight: 700;" text="Čerpadlo" />
 </AnchorPane>
