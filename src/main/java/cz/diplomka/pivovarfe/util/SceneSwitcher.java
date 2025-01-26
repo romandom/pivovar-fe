@@ -24,15 +24,21 @@ public class SceneSwitcher {
         if (primaryStage == null) {
             throw new IllegalStateException("Primary stage is not set. Call setPrimaryStage first.");
         }
+
+        boolean isFullScreen = primaryStage.isFullScreen();
+
         FXMLLoader loader = new FXMLLoader(SceneSwitcher.class.getResource(fxmlPath));
         Scene scene = new Scene(loader.load(), 800, 480);
 
         if (controllerInitializer != null) {
             controllerInitializer.accept(loader.getController());
         }
-        primaryStage.setFullScreen(true);
+
         primaryStage.setScene(scene);
+
+        primaryStage.setFullScreen(isFullScreen);
     }
+
 
     public static void switchScene(ViewPath viewPath) throws IOException {
         switchScene(viewPath.getPath());
