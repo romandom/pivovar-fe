@@ -23,16 +23,6 @@ public class CreateRecipeController {
     @FXML
     private TextField recipeNameField;
     @FXML
-    private TextField targetTempField;
-    @FXML
-    private TextField durationField;
-    @FXML
-    private ChoiceBox<BrewingVessel> vesselChoiceBox;
-    @FXML
-    private CheckBox transferCheckBox;
-    @FXML
-    private ChoiceBox<BrewingProcess> processChoiceBox;
-    @FXML
     private TableView<RecipeStep> stepsTable;
     @FXML
     private TableColumn<RecipeStep, Integer> stepNumberColumn;
@@ -46,6 +36,40 @@ public class CreateRecipeController {
     private TableColumn<RecipeStep, Boolean> transferColumn;
     @FXML
     private TableColumn<RecipeStep, String> processColumn;
+    @FXML
+    private Slider temperatureSlider;
+    @FXML
+    private Label temperatureLabel;
+    @FXML
+    private Button temperaturePlusButton;
+    @FXML
+    private Button temperatureMinusButton;
+    @FXML
+    private Slider durationSlider;
+    @FXML
+    private Label durationLabel;
+    @FXML
+    private Button durationPlusButton;
+    @FXML
+    private Button durationMinusButton;
+    @FXML
+    private ToggleGroup kettleGroup;
+    @FXML
+    private ToggleButton rmutovaciaButton;
+    @FXML
+    private ToggleButton vystieraciaButton;
+    @FXML
+    private ToggleGroup processGroup;
+    @FXML
+    private ToggleButton rmutovaciButton;
+    @FXML
+    private ToggleButton chmelovarButton;
+    @FXML
+    private ToggleGroup decoctionGroup;
+    @FXML
+    private ToggleButton anoDecoctionButton;
+    @FXML
+    private ToggleButton nieDecoctionButton;
 
     private final ObservableList<RecipeStep> recipeSteps;
     private final RecipeClient recipeClient;
@@ -60,22 +84,32 @@ public class CreateRecipeController {
 
     @FXML
     public void initialize() {
-        vesselChoiceBox.getItems().setAll(BrewingVessel.values());
-        processChoiceBox.getItems().setAll(BrewingProcess.values());
         createCellsOfTable();
+
+        setupSliderAndLabel(temperatureSlider, temperatureLabel, 20.0, 100.0, 20.0);
+        setupButtons(temperatureSlider, temperaturePlusButton, temperatureMinusButton, 1.0);
+
+        setupSliderAndLabel(durationSlider, durationLabel, 0.0, 120.0, 0.0);
+        setupButtons(durationSlider, durationPlusButton, durationMinusButton, 1.0);
+
+        setupToggleGroup(kettleGroup, rmutovaciaButton);
+        setupToggleGroup(processGroup, rmutovaciButton);
+        setupToggleGroup(decoctionGroup, nieDecoctionButton);
+
+
         stepsTable.setItems(recipeSteps);
     }
 
     @FXML
     private void addStep() {
         try {
-            var targetTemperature = Double.parseDouble(targetTempField.getText());
-            var duration = Integer.parseInt(durationField.getText());
-            var vessel = vesselChoiceBox.getValue();
-            var isTransferStep = transferCheckBox.isSelected();
-            var process = processChoiceBox.getValue();
+            var targetTemperature = Double.parseDouble(temperatureLabel.getText());
+            var duration = Integer.parseInt(durationLabel.getText());
+            var vessel = getSelectedKettle();
+            var isTransferStep = getSelectedDecoction();
+            var process = getSelectedProcess();
 
-            var step = new RecipeStep(stepNumber, targetTemperature, duration, vessel, isTransferStep,process);
+            var step = new RecipeStep(stepNumber, targetTemperature, duration, vessel, isTransferStep, process);
             recipeSteps.add(step);
 
             stepNumber++;
@@ -123,11 +157,11 @@ public class CreateRecipeController {
     }
 
     private void clearInputFields() {
-        targetTempField.clear();
-        durationField.clear();
-        vesselChoiceBox.getSelectionModel().clearSelection();
-        transferCheckBox.setSelected(false);
-        processChoiceBox.getSelectionModel().clearSelection();
+        durationSlider.setValue(0.0);
+        temperatureSlider.setValue(20.0);
+        kettleGroup.selectToggle(rmutovaciaButton);
+        decoctionGroup.selectToggle(nieDecoctionButton);
+        processGroup.selectToggle(rmutovaciButton);
     }
 
     private void createCellsOfTable() {
@@ -137,5 +171,72 @@ public class CreateRecipeController {
         configureStringColumn(vesselColumn, step -> step.getVessel().toString());
         configureBooleanColumn(transferColumn, RecipeStep::isDecoctionStep);
         configureStringColumn(processColumn, step -> step.getProcess().toString());
+    }
+
+    private void setupSliderAndLabel(Slider slider, Label label, double min, double max, double initialValue) {
+        slider.setMin(min);
+        slider.setMax(max);
+        slider.setValue(initialValue);
+
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> label.setText(String.format("%.0f", newValue.doubleValue())));
+    }
+
+    private void setupButtons(Slider slider, Button plusButton, Button minusButton, double step) {
+        plusButton.setOnAction(event -> {
+            double currentValue = slider.getValue();
+            if (currentValue < slider.getMax()) {
+                slider.setValue(currentValue + step);
+            }
+        });
+
+        minusButton.setOnAction(event -> {
+            double currentValue = slider.getValue();
+            if (currentValue > slider.getMin()) {
+                slider.setValue(currentValue - step);
+            }
+        });
+    }
+
+    private void setupToggleGroup(ToggleGroup toggleGroup, ToggleButton toggleButton) {
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ToggleButton selectedButton = (ToggleButton) newValue;
+                System.out.println("Selected: " + selectedButton.getText());
+            } else {
+                System.out.println("No selected.");
+            }
+        });
+
+        toggleGroup.selectToggle(toggleButton);
+    }
+
+    private BrewingVessel getSelectedKettle() {
+        ToggleButton selectedButton = (ToggleButton) kettleGroup.getSelectedToggle();
+        if (selectedButton == rmutovaciaButton) {
+            return BrewingVessel.MAIN_KETTLE;
+        } else if (selectedButton == vystieraciaButton) {
+            return BrewingVessel.DECOCTION_KETTLE;
+        }
+        return BrewingVessel.MAIN_KETTLE;
+    }
+
+    private BrewingProcess getSelectedProcess() {
+        ToggleButton selectedButton = (ToggleButton) processGroup.getSelectedToggle();
+        if (selectedButton == rmutovaciButton) {
+            return BrewingProcess.MASHING;
+        } else if (selectedButton == chmelovarButton) {
+            return BrewingProcess.HOPPING;
+        }
+        return BrewingProcess.MASHING;
+    }
+
+    private boolean getSelectedDecoction() {
+        ToggleButton selectedButton = (ToggleButton) decoctionGroup.getSelectedToggle();
+        if (selectedButton == anoDecoctionButton) {
+            return true;
+        } else if (selectedButton == nieDecoctionButton) {
+            return false;
+        }
+        return false;
     }
 }

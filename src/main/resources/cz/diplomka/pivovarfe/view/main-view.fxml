@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cz.diplomka.pivovarfe.controller.MainController"
-      stylesheets="@styles/styles.css">
-    <Label text="Hlavné menu" styleClass="main-title" />
-    <Button text="Ovládanie hardvéru" onAction="#openHardwareControl" styleClass="menu-button" />
-    <Button text="Vytvoriť recept" onAction="#openRecipeCreate" styleClass="menu-button" />
-    <Button text="Prehliadať recepty" onAction="#openRecipeList" styleClass="menu-button" />
-</VBox>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
+<AnchorPane prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #e0e1dd;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.MainController">
+    <Label layoutX="275.0" layoutY="45.0" style="-fx-text-fill: #0d1b2a;" text="Hlavné menu" textFill="#0d1b2a">
+      <font>
+         <Font name="Arial Bold" size="40.0" />
+      </font></Label>
+    <Button layoutX="243.0" layoutY="132.0" onAction="#openHardwareControl" prefHeight="66.0" prefWidth="314.0" style="-fx-background-radius: 10px; -fx-background-color: #1b263b; -fx-text-fill: WHITE;" text="Ovládanie hardvéru">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font></Button>
+    <Button layoutX="243.0" layoutY="240.0" onAction="#openRecipeCreate" prefHeight="66.0" prefWidth="314.0" style="-fx-background-radius: 10px; -fx-background-color: #1b263b; -fx-text-fill: WHITE;" text="Vytvoriť recept">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font></Button>
+    <Button layoutX="243.0" layoutY="345.0" onAction="#openRecipeList" prefHeight="66.0" prefWidth="314.0" style="-fx-background-radius: 10px; -fx-background-color: #1b263b; -fx-text-fill: white;" text="Prehliadať recepty">
+      <font>
+         <Font name="Arial Bold" size="20.0" />
+      </font></Button>
+</AnchorPane>
