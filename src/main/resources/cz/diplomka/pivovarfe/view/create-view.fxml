@@ -111,13 +111,10 @@
                <Font name="Arial Bold" size="14.0" />
             </font>
          </ToggleButton>
-         <ToggleButton fx:id="vystieraciaButton" layoutX="16.0" layoutY="85.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #717744;" text="Vystieracia" textFill="WHITE">
+         <ToggleButton fx:id="vystieraciaButton" toggleGroup="$kettleGroup" layoutX="16.0" layoutY="85.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #717744;" text="Vystieracia" textFill="WHITE">
             <font>
                <Font name="Arial Bold" size="14.0" />
             </font>
-            <toggleGroup>
-               <ToggleGroup fx:id="kettle" />
-            </toggleGroup>
          </ToggleButton>
       </children>
    </Pane>
@@ -136,13 +133,10 @@
                <Font name="Arial Bold" size="14.0" />
             </font>
          </ToggleButton>
-         <ToggleButton fx:id="chmelovarButton" layoutX="16.0" layoutY="83.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #717744;" text="Chmelovar" textFill="WHITE">
+         <ToggleButton toggleGroup="$processGroup" fx:id="chmelovarButton" layoutX="16.0" layoutY="83.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="119.0" style="-fx-background-color: #717744;" text="Chmelovar" textFill="WHITE">
             <font>
                <Font name="Arial Bold" size="14.0" />
             </font>
-            <toggleGroup>
-               <ToggleGroup fx:id="process" />
-            </toggleGroup>
          </ToggleButton>
       </children>
    </Pane>
@@ -161,13 +155,10 @@
                <ToggleGroup fx:id="decoctionGroup" />
             </toggleGroup>
          </ToggleButton>
-         <ToggleButton fx:id="nieDecoctionButton" layoutX="239.0" layoutY="7.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #bc4749;" text="Nie" textFill="WHITE">
+         <ToggleButton toggleGroup="$decoctionGroup" fx:id="nieDecoctionButton" layoutX="239.0" layoutY="7.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #bc4749;" text="Nie" textFill="WHITE">
             <font>
                <Font name="Arial Bold" size="14.0" />
             </font>
-            <toggleGroup>
-               <ToggleGroup fx:id="decoction" />
-            </toggleGroup>
          </ToggleButton>
       </children>
    </Pane>
@@ -176,7 +167,7 @@
          <Font name="Arial Bold" size="18.0" />
       </font>
    </Button>
-   <Button layoutX="593.0" layoutY="286.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" style="-fx-background-color: #bc4749;" text="Vymazať" textFill="WHITE">
+   <Button layoutX="593.0" layoutY="286.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="167.0" style="-fx-background-color: #bc4749;" text="Vymazať" textFill="WHITE" onAction="#vymazat">
       <font>
          <Font name="Arial Bold" size="18.0" />
       </font>

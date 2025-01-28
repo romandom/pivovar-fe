@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx" prefHeight="480.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="TOP_CENTER" stylesheets="@styles/styles.css" fx:controller="cz.diplomka.pivovarfe.controller.RecipeListController">
+<AnchorPane prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #e0e1dd;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.diplomka.pivovarfe.controller.RecipeListController">
 
-    <Label text="Zoznam receptov" styleClass="header-label" />
-
-    <ListView fx:id="recipeListView" maxWidth="400" maxHeight="200" />
-
-    <HBox spacing="30" alignment="CENTER">
-        <Button styleClass="create-button" text="Menu" onAction="#menu"/>
-        <Button styleClass="create-button" text="Otvoriť" onAction="#openRecipe"/>
-        <Button styleClass="create-button" text="Vymazať" onAction="#deleteRecipe"/>
-    </HBox>
-</VBox>
+        <Button layoutX="137.0" layoutY="376.0" onAction="#menu" prefHeight="54.0" prefWidth="133.0" style="-fx-background-color: #766153;" text="Menu" textFill="WHITE">
+      <font>
+         <Font name="Arial Bold" size="22.0" />
+      </font></Button>
+        <Button layoutX="356.0" layoutY="376.0" onAction="#openRecipe" prefHeight="54.0" prefWidth="134.0" style="-fx-background-color: #386641;" text="Otvoriť" textFill="WHITE">
+      <font>
+         <Font name="Arial Bold" size="22.0" />
+      </font></Button>
+        <Button layoutX="556.0" layoutY="376.0" onAction="#deleteRecipe" prefHeight="54.0" prefWidth="134.0" style="-fx-background-color: #bc4749;" text="Vymazať" textFill="WHITE">
+      <font>
+         <Font name="Arial Bold" size="22.0" />
+      </font></Button>
+   <Pane layoutX="90.0" layoutY="30.0" prefHeight="312.0" prefWidth="620.0" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 4);">
+      <children>
+      
+          <ListView fx:id="recipeListView" layoutX="27.0" layoutY="44.0" maxHeight="239.0" maxWidth="566.0" prefHeight="239.0" prefWidth="566.0" />
+      
+          <Label layoutX="14.0" layoutY="14.0" styleClass="header-label" text="Zoznam receptov">
+            <font>
+               <Font name="Arial Bold" size="15.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+</AnchorPane>

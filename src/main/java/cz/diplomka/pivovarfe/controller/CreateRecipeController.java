@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 import static cz.diplomka.pivovarfe.util.TableColumnFactory.*;
 import static cz.diplomka.pivovarfe.util.TableColumnFactory.configureBooleanColumn;
@@ -123,6 +124,15 @@ public class CreateRecipeController {
     @FXML
     private void menu() throws IOException {
         SceneSwitcher.switchScene(ViewPath.MAIN_VIEW);
+    }
+
+    @FXML
+    private void vymazat() {
+        stepsTable.getItems()
+                .stream()
+                .max(Comparator.comparingInt(RecipeStep::getStepNumber))
+                .ifPresent(itemToRemove -> stepsTable.getItems().remove(itemToRemove));
+        stepNumber--;
     }
 
     @FXML

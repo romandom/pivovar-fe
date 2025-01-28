@@ -89,3 +89,19 @@
     -fx-background-color: #34495e;
     -fx-text-fill: #ecf0f1;
 }
+
+.toggle-button {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+    -fx-transition: all 0.3s ease;
+}
+
+.toggle-button:selected {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: white;
+}
